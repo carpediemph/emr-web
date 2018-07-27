@@ -31,7 +31,7 @@ public class Doctor {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="specilaization")
+	@Column(name="specialization")
 	private String specialization;
 	
 	@Column(name="gender")

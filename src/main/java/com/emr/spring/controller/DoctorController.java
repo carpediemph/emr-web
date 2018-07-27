@@ -3,9 +3,10 @@ package com.emr.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,5 +30,27 @@ public class DoctorController {
 	@RequestMapping(value = "/doctors/json", method = RequestMethod.GET)
 	public @ResponseBody List<Doctor> listDoctorsJson(){
 		return doctorService.listDoctors();
+	}
+	
+	@RequestMapping(value = "/doctor/{id}", method = RequestMethod.GET)
+	public @ResponseBody Doctor getDoctorById(@PathVariable("id") int id) {
+		return doctorService.getDoctorById(id);
+	}
+	
+	@RequestMapping(value = "/doctor/add", method = RequestMethod.POST)
+	public String addDoctor(@ModelAttribute("doctor") Doctor doctor) {
+		if (doctor.getId() == 0) {
+			doctorService.addDoctor(doctor);
+		} else {
+			doctorService.updateDoctor(doctor);
+		}
+		return "redirect:/doctors";
+	}
+	
+	@RequestMapping(value = "/doctor/edit/{id}", method = RequestMethod.GET)
+	public String editDoctor(@PathVariable("id") int id, Model model) {
+		model.addAttribute("doctor", new Doctor());
+		model.addAttribute("doctors", doctorService.listDoctors());
+		return "edit-doctor";
 	}
 }
