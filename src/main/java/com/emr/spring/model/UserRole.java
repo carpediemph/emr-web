@@ -1,4 +1,3 @@
-
 package com.emr.spring.model;
 
 import java.sql.Date;
@@ -11,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USERS")
-public class User {
+@Table(name="USER_ROLES")
+public class UserRole {
 
 	@Id
 	@Column(name="id")
@@ -25,20 +24,11 @@ public class User {
 	@Column(name="updated_by")
 	private String updatedBy;
 
-	@Column(name="name")
-	private String name;
-	
 	@Column(name="username")
 	private String username;
 	
-	@Column(name="password")
-	private String password;
-	
-	@Column(name="user_type")
-	private String userType;
-	
-	@Column(name="is_active")
-	private boolean isActive;
+	@Column(name="role")
+	private String role;
 
 	public long getId() {
 		return id;
@@ -64,14 +54,6 @@ public class User {
 		this.updatedBy = updatedBy;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getUsername() {
 		return username;
 	}
@@ -80,38 +62,19 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getRole() {
+		return role;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=").append(id).append(", dateUpdated=").append(dateUpdated).append(", updatedBy=")
-				.append(updatedBy).append(", name=").append(name).append(", username=").append(username)
-				.append(", password=").append(password).append(", userType=").append(userType).append(", isActive=")
-				.append(isActive).append("]");
+		builder.append("UserRole [id=").append(id).append(", dateUpdated=").append(dateUpdated).append(", updatedBy=")
+				.append(updatedBy).append(", username=").append(username).append(", role=").append(role).append("]");
 		return builder.toString();
 	}
-	
 }

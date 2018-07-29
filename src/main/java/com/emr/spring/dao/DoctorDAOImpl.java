@@ -14,7 +14,7 @@ import com.emr.spring.model.Doctor;
 @Repository
 public class DoctorDAOImpl implements DoctorDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(DoctorDAOImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(DoctorDAOImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;

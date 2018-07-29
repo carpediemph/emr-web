@@ -18,7 +18,7 @@ public class DoctorServiceImpl implements DoctorService {
 	private static final Logger logger = LoggerFactory.getLogger(DoctorServiceImpl.class);
 	
 	@Autowired
-	DoctorDAO doctorDAO;
+	private DoctorDAO doctorDAO;
 
 	@Override
 	@Transactional

@@ -89,6 +89,24 @@ CREATE TABLE `emr`.`account_settings` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC));
 
+CREATE TABLE `emr`.`medical_records` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `date_updated` DATETIME NOT NULL DEFAULT NOW(),
+  `updated_by` VARCHAR(50) NOT NULL,
+  `height` VARCHAR(45) NULL,
+  `weight` VARCHAR(45) NULL,
+  `blood_pressure` VARCHAR(45) NULL,
+  `date_taken` DATETIME NULL,
+  `symptoms` VARCHAR(100) NULL,
+  `diagnosis` VARCHAR(100) NULL,
+  `remarks` VARCHAR(100) NULL,
+  `prescription` VARCHAR(100) NULL,
+  `followup_date` DATETIME NULL,
+  `patient_id` BIGINT NOT NULL,
+  `doctor_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC));
+  
 CREATE TABLE `emr`.`users` (
   `id` BIGINT(10) NOT NULL AUTO_INCREMENT,
   `date_updated` DATETIME NOT NULL DEFAULT NOW(),
@@ -101,7 +119,7 @@ CREATE TABLE `emr`.`users` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC));
 
-CREATE TABLE `roles` (
+CREATE TABLE `emr`.`user_roles` (
   `id` BIGINT(10) NOT NULL AUTO_INCREMENT,
   `date_updated` DATETIME NOT NULL DEFAULT NOW(),
   `updated_by` VARCHAR(50) NOT NULL,

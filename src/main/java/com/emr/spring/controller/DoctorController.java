@@ -2,6 +2,8 @@ package com.emr.spring.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import com.emr.spring.service.DoctorService;
 @Controller
 public class DoctorController {
 
+	private static Logger logger = LoggerFactory.getLogger(DoctorController.class);
+	
 	@Autowired
 	private DoctorService doctorService;
 	
@@ -27,14 +31,10 @@ public class DoctorController {
 		return "list-doctors";
 	}
 	
-	@RequestMapping(value = "/doctors/json", method = RequestMethod.GET)
-	public @ResponseBody List<Doctor> listDoctorsJson(){
-		return doctorService.listDoctors();
-	}
-	
-	@RequestMapping(value = "/doctor/{id}", method = RequestMethod.GET)
-	public @ResponseBody Doctor getDoctorById(@PathVariable("id") int id) {
-		return doctorService.getDoctorById(id);
+	@RequestMapping(value = "/doctor/add", method = RequestMethod.GET)
+	public String addClinic(Model model) {
+		model.addAttribute("doctor", new Doctor());
+		return "add-doctor";
 	}
 	
 	@RequestMapping(value = "/doctor/add", method = RequestMethod.POST)
@@ -49,8 +49,25 @@ public class DoctorController {
 	
 	@RequestMapping(value = "/doctor/edit/{id}", method = RequestMethod.GET)
 	public String editDoctor(@PathVariable("id") int id, Model model) {
-		model.addAttribute("doctor", new Doctor());
+		model.addAttribute("doctor", doctorService.getDoctorById(id));
 		model.addAttribute("doctors", doctorService.listDoctors());
 		return "edit-doctor";
 	}
+	
+	@RequestMapping(value = "/doctor/{id}", method = RequestMethod.GET)
+	public String viewDoctor(@PathVariable("id") long id, Model model) {
+		model.addAttribute("doctor", doctorService.getDoctorById(id));
+		return "view-doctor";
+	}
+	
+	@RequestMapping(value = "/doctors/json", method = RequestMethod.GET)
+	public @ResponseBody List<Doctor> listDoctorsJson(){
+		return doctorService.listDoctors();
+	}
+	
+	@RequestMapping(value = "/doctor/{id}/json", method = RequestMethod.GET)
+	public @ResponseBody Doctor getDoctorById(@PathVariable("id") long id) {
+		return doctorService.getDoctorById(id);
+	}
+	
 }
