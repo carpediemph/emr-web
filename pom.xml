@@ -32,6 +32,12 @@
 			<version>${jackson.databind-version}</version>
 		</dependency>
 		
+		<dependency>
+	        <groupId>com.fasterxml.jackson.datatype</groupId>
+	        <artifactId>jackson-datatype-hibernate4</artifactId>
+	        <version>${jackson.databind-version}</version>
+        </dependency>
+		
 		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>

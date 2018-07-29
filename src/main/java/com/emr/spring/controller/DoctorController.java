@@ -1,5 +1,7 @@
 package com.emr.spring.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -39,6 +41,7 @@ public class DoctorController {
 	
 	@RequestMapping(value = "/doctor/add", method = RequestMethod.POST)
 	public String addDoctor(@ModelAttribute("doctor") Doctor doctor) {
+		doctor.setDateUpdated(Date.valueOf(LocalDate.now()));
 		if (doctor.getId() == 0) {
 			doctorService.addDoctor(doctor);
 		} else {

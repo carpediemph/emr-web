@@ -22,7 +22,7 @@ public class ClinicDAOImpl implements ClinicDAO {
 	@Override
 	public void addClinic(Clinic clinic) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(clinic);
+		session.save(clinic);
 		logger.info("clinic saved successfully. clinic details=" + clinic);
 	}
 

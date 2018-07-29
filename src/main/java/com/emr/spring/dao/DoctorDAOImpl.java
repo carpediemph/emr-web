@@ -22,7 +22,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 	@Override
 	public void addDoctor(Doctor doctor) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(doctor);
+		session.save(doctor);
 		logger.info("Doctor saved successfully. Doctor details=" + doctor);
 	}
 
