@@ -43,8 +43,10 @@ public class DoctorController {
 	public String addDoctor(@ModelAttribute("doctor") Doctor doctor) {
 		doctor.setDateUpdated(Date.valueOf(LocalDate.now()));
 		if (doctor.getId() == 0) {
+			logger.info("Adding new doctor="+doctor);
 			doctorService.addDoctor(doctor);
 		} else {
+			logger.info("Updating doctor="+doctor);
 			doctorService.updateDoctor(doctor);
 		}
 		return "redirect:/doctors";

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,20 @@ public class ClinicDAOImpl implements ClinicDAO {
 		return clinics;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
+	public List<Clinic> listClinicsByDoctorId(long doctorId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Clinic> clinics = session.createCriteria(Clinic.class)
+				.add(Restrictions.eq("doctorId", doctorId)).list();
+		logger.info("List clinics" + clinics);
+		return clinics;
+	}
+	
+    @Override
 	public Clinic getClinicById(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Clinic clinic = (Clinic) session.load(Clinic.class, new Long(id));
+		Clinic clinic = (Clinic) session.get(Clinic.class, new Long(id));
 		logger.info("Clinic loaded successfully. Clinic details=" + clinic);
 		return clinic;
 	}

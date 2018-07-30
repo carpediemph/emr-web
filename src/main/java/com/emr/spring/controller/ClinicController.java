@@ -1,5 +1,7 @@
 package com.emr.spring.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,7 +30,14 @@ public class ClinicController {
 	public String listClinics(Model model) {
 		model.addAttribute("clinic", new Clinic());
 		model.addAttribute("clinics", clinicService.listClinics());
-		return "list-clinic";
+		return "list-clinics";
+	}
+	
+	@RequestMapping(value = "/clinics/doctor/{id}", method = RequestMethod.GET)
+	public String listClinicsByDoctorId(@PathVariable("id") long doctorId, Model model) {
+		model.addAttribute("clinic", new Clinic());
+		model.addAttribute("clinics", clinicService.listClinicsByDoctorId(doctorId));
+		return "list-clinics-doctor";
 	}
 	
 	@RequestMapping(value = "/clinic/add", method = RequestMethod.GET)
@@ -39,9 +48,12 @@ public class ClinicController {
 	
 	@RequestMapping(value = "/clinic/add", method = RequestMethod.POST)
 	public String addClinic(@ModelAttribute("clinic") Clinic clinic) {
+		clinic.setDateUpdated(Date.valueOf(LocalDate.now()));
 		if (clinic.getId() == 0) {
+			logger.info("Adding new clinic=" + clinic);
 			clinicService.addClinic(clinic);
 		} else {
+			logger.info("Updating clinic=" + clinic);
 			clinicService.updateClinic(clinic);
 		}
 		return "redirect:/clinics";

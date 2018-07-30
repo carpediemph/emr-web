@@ -20,6 +20,7 @@ public class ClinicServiceImpl implements ClinicService {
 
 	@Override
 	public void addClinic(Clinic clinic) {
+		logger.info("Adding clinic="+clinic);
 		clinicDAO.addClinic(clinic);
 	}
 
@@ -31,6 +32,11 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public List<Clinic> listClinics() {
 		return clinicDAO.listClinics();
+	}
+
+	@Override
+	public List<Clinic> listClinicsByDoctorId(long doctorId) {
+		return clinicDAO.listClinicsByDoctorId(doctorId);
 	}
 
 	@Override
