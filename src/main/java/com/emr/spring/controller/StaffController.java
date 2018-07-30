@@ -3,8 +3,6 @@ package com.emr.spring.controller;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.emr.spring.model.Clinic;
-import com.emr.spring.model.Doctor;
 import com.emr.spring.model.Staff;
 import com.emr.spring.service.ClinicService;
 import com.emr.spring.service.DoctorService;
@@ -58,15 +55,11 @@ public class StaffController {
 		return "list-staffs";
 	}
 	
-	@RequestMapping(value = "/staff/add", method = RequestMethod.GET)
-	public String addStaffForm(Model model) {
+	@RequestMapping(value = "/staff/add/{did}", method = RequestMethod.GET)
+	public String addStaffForm(@PathVariable("did") long doctorId, Model model) {
 		model.addAttribute("staff", new Staff());
-		List<Doctor> doctors = doctorService.listDoctors();
-		model.addAttribute("doctors", doctors);
-		Map<Long, List<Clinic>> clinics = doctors.stream()
-				.collect(Collectors.toMap(
-						doctor -> doctor.getId(), 
-						doctor -> clinicService.listClinicsByDoctorId(doctor.getId())));
+		model.addAttribute("doctor", doctorService.getDoctorById(doctorId));
+		List<Clinic> clinics = clinicService.listClinicsByDoctorId(doctorId);
 		model.addAttribute("clinics", clinics);
 		return "add-staff";
 	}

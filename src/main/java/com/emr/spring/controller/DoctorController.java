@@ -34,7 +34,7 @@ public class DoctorController {
 	}
 	
 	@RequestMapping(value = "/doctor/add", method = RequestMethod.GET)
-	public String addClinic(Model model) {
+	public String addDoctor(Model model) {
 		model.addAttribute("doctor", new Doctor());
 		return "add-doctor";
 	}
